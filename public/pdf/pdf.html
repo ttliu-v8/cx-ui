@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="telephone=no,email=no" name="format-detection">
+  <title class="titleName"></title>
+  <!--<link rel="stylesheet" href="../css/flexible.css" type="text/css">-->
+  <!--<link rel="stylesheet" href="../css/proposal.css" type="text/css">-->
+  <!--<script src="../js/proposal/flexible.js"></script>-->
+  <style>
+  	.pdf-body{
+      padding-top:2.8rem;
+      margin: 0;
+    }
+    .header{
+      position: fixed;
+      z-index: 9;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 2.8rem;
+      background-color:#f8f8f8;
+      text-align: center;
+      line-height: 2.8rem;
+    }
+    .back{
+      position: absolute;
+      display: block;
+      width: 0.8rem;
+      left: 0.8rem;
+      top: .3rem;
+    }
+    .back img{
+      width: 100%;
+    }
+    .share{
+      position: absolute;
+      display: block;
+      width: 1.8rem;
+      right: 0.8rem;
+      top: .5rem;;
+    }
+    .share img{
+      width: 100%;
+    }
+    .title{
+        color:#333;
+      font-size:1rem
+    }
+  </style>
+  <script src="jquery-3.3.1.min.js"></script>
+  <script src="pdf.js"></script>
+  <script src="pdf.worker.js"></script>
+
+</head>
+
+<body class="pdf-body">
+<div class="header">
+  <a class="back" id="back">
+    <img src="../images/ico-left.png" alt="">
+  </a>
+  <span class="title">�ƻ�������</span>
+  <!--<i class="share">
+    <img src="../images/ico-share.png">
+  </i>-->
+</div>
+<div id="tmPlayer" class="tmPlayer"></div>
+<script type="text/javascript">
+  var var_filepath = getURLSomeParam('pdfurl')//���ܿ���
+  var zfflag = getURLSomeParam('ZFflag')
+  var var_win_height = $(window).height();
+  //����url·��
+  function parseURL() {
+    var params = {};
+    var url = document.location.search;
+    if (url.indexOf('?') != -1) {
+      var temp = url.substr(url.indexOf('?') + 1);
+      temps = temp.split('&');
+      for (var t = 0; t < temps.length; t++) {
+        params[temps[t].split('=')[0]] = temps[t].split('=')[1];
+      }
+    } else {
+      console.log('��ʱ�����ڲ���');
+    }
+    return params;
+  }
+  //��url·����Ȥ����
+  function getURLSomeParam(param) {
+    var params = parseURL();
+    for (key in params) {
+      if (key == param)
+        return params[key];
+      else
+        console.log('δ���񵽲���');
+    }
+  }
+  $(document).ready(function () {
+    resetPlayerSize();
+  });
+
+  $(window).resize(function () {
+    resetPlayerSize();
+  });
+
+  function resetPlayerSize() {
+    var_win_height = $(window).height();
+    $(".tmPlayer").css({ "height": var_win_height + "px" });
+  }
+  $(function () {
+    var backurl=getURLSomeParam('backPDFUrl')
+    var zfflag = getURLSomeParam('ZFflag')
+    $("#back").click(function () {
+      location.href=decodeURIComponent(backurl)+"&flag=1&ZFflag="+zfflag 
+    })
+    var proposalName=decodeURI(getURLSomeParam('proposalName'));
+    $(".title").text(proposalName);
+    var titleName=decodeURI(getURLSomeParam('titleName'));
+    $(".titleName").text(titleName);
+  })
+</script>
+<script type="text/javascript">
+    $('.tmPlayer').html('<iframe frameBorder="0" scrolling="no" src=' +
+        var_filepath +
+        '"generic/web/viewer.html?file=" style="width:100%; height:100%;"></iframe>');
+</script>
+
+</body>
+</html>

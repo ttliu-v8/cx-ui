@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .loader-05 {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            color: inherit;
+            vertical-align: middle;
+            pointer-events: none;
+            border: .2em solid #fff;
+            border-top-color: currentcolor;
+            border-radius: 50%;
+            -webkit-animation: 1s loader-05 linear infinite;
+            animation: 1s loader-05 linear infinite;
+            position: relative;
+            top: 30px;
+            left: 30px;
+        }
+
+        .loader-05:before {
+            content: '';
+            display: block;
+            width: inherit;
+            height: inherit;
+            position: absolute;
+            top: -.2em;
+            left: -.2em;
+            border: .2em solid currentcolor;
+            border-radius: 50%;
+            opacity: .5;
+        }
+
+        @-webkit-keyframes loader-05 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loader-05 {
+            0% {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id='loading_cen'
+        style='background-color:#000;opacity: 0.8;position: fixed;width: 100px;height: 100px;border-radius:5px;top: 50%;left: 50%;z-index: 10001;margin-left: -50px;margin-top: -50px;'>
+        <div class="loader-05"></div>
+    </div>
+
+</body>
+
+</html>
